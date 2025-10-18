@@ -1,7 +1,6 @@
 import heapq
 import time
-import tracemalloc
-from collections import deque  
+from collections import deque
 from typing import List, Tuple, Dict, Optional
 
 from maze import Maze, Pos
@@ -9,10 +8,10 @@ from heuristics import h_manhattan
 
 # --- Buscas Informadas ---
 
-def a_star_search(maze: Maze) -> Tuple[Optional[List[Pos]], Optional[float], int]:
+def a_star_search(maze: Maze) -> Tuple[Optional[List[Pos]], Optional[float], int, int]:
     """
     Realiza uma busca A*.
-    Retorna: (caminho, custo, nós_expandidos)
+    Retorna: (caminho, custo, nós_expandidos, pico_memoria)
     """
     start_node = maze.start
     goal_node = maze.goal
@@ -24,14 +23,12 @@ def a_star_search(maze: Maze) -> Tuple[Optional[List[Pos]], Optional[float], int
     came_from: Dict[Pos, Pos] = {}
     
     cost_so_far: Dict[Pos, float] = {start_node: 0.0}
+    
+    max_memory_usage = len(frontier) + len(cost_so_far)
 
     while frontier:
         _, current_node = heapq.heappop(frontier)
-         
-        if current_node in came_from and came_from[current_node] is not None:
-             if cost_so_far[current_node] > cost_so_far.get(current_node, float('inf')):
-                 continue
-
+        
         nodes_expanded += 1
 
         if maze.goal_test(current_node):
@@ -42,7 +39,7 @@ def a_star_search(maze: Maze) -> Tuple[Optional[List[Pos]], Optional[float], int
                 temp = came_from[temp]
             path.append(start_node)
             path.reverse() 
-            return path, cost_so_far[current_node], nodes_expanded
+            return path, cost_so_far[current_node], nodes_expanded, max_memory_usage
   
         for action in maze.actions(current_node): 
             neighbor = maze.result(current_node, action)
@@ -52,13 +49,16 @@ def a_star_search(maze: Maze) -> Tuple[Optional[List[Pos]], Optional[float], int
                 priority = new_cost + h_manhattan(neighbor, goal_node)
                 heapq.heappush(frontier, (priority, neighbor))
                 came_from[neighbor] = current_node
+                
+                current_memory = len(frontier) + len(cost_so_far)
+                max_memory_usage = max(max_memory_usage, current_memory)
   
-    return None, None, nodes_expanded
+    return None, None, nodes_expanded, max_memory_usage
 
-def greedy_best_first_search(maze: Maze) -> Tuple[Optional[List[Pos]], Optional[float], int]:
+def greedy_best_first_search(maze: Maze) -> Tuple[Optional[List[Pos]], Optional[float], int, int]:
     """
     Realiza uma Busca Gulosa.
-    Retorna: (caminho, custo, nós_expandidos)
+    Retorna: (caminho, custo, nós_expandidos, pico_memoria)
     """
     start_node = maze.start
     goal_node = maze.goal
@@ -72,6 +72,8 @@ def greedy_best_first_search(maze: Maze) -> Tuple[Optional[List[Pos]], Optional[
     explored = {start_node}
 
     cost_so_far: Dict[Pos, float] = {start_node: 0.0}
+    
+    max_memory_usage = len(frontier) + len(explored)
 
     while frontier:
         _, current_node = heapq.heappop(frontier)
@@ -84,7 +86,7 @@ def greedy_best_first_search(maze: Maze) -> Tuple[Optional[List[Pos]], Optional[
                 path.append(temp)
                 temp = came_from[temp]
             path.reverse()
-            return path, cost_so_far[current_node], nodes_expanded
+            return path, cost_so_far[current_node], nodes_expanded, max_memory_usage
   
         for action in maze.actions(current_node): 
             neighbor = maze.result(current_node, action)
@@ -94,26 +96,32 @@ def greedy_best_first_search(maze: Maze) -> Tuple[Optional[List[Pos]], Optional[
                 came_from[neighbor] = current_node
                 priority = h_manhattan(neighbor, goal_node)
                 heapq.heappush(frontier, (priority, neighbor))
+                
+                current_memory = len(frontier) + len(explored)
+                max_memory_usage = max(max_memory_usage, current_memory)
   
-    return None, None, nodes_expanded
- 
+    return None, None, nodes_expanded, max_memory_usage
 
-def bfs_search(maze: Maze) -> Tuple[Optional[List[Pos]], Optional[float], int]:
+# --- Buscas Não Informadas ---
+
+def bfs_search(maze: Maze) -> Tuple[Optional[List[Pos]], Optional[float], int, int]:
     """
     Realiza uma Busca em Largura (BFS).
-    Retorna: (caminho, custo, nós_expandidos)
+    Retorna: (caminho, custo, nós_expandidos, pico_memoria)
     """
     start_node = maze.start
     nodes_expanded = 0
     
-    frontier = deque([start_node])  
+    frontier = deque([start_node])
     
     came_from: Dict[Pos, Pos] = {start_node: None}
     
     explored = {start_node}
+    
+    max_memory_usage = len(frontier) + len(explored)
 
     while frontier:
-        current_node = frontier.popleft()   
+        current_node = frontier.popleft()
         nodes_expanded += 1
 
         if maze.goal_test(current_node):
@@ -124,33 +132,38 @@ def bfs_search(maze: Maze) -> Tuple[Optional[List[Pos]], Optional[float], int]:
                 temp = came_from[temp]
             path.reverse()
             cost = len(path) - 1
-            return path, float(cost), nodes_expanded
+            return path, float(cost), nodes_expanded, max_memory_usage
 
         for action in maze.actions(current_node):
             neighbor = maze.result(current_node, action)
             if neighbor not in explored:
                 explored.add(neighbor)
                 came_from[neighbor] = current_node
-                frontier.append(neighbor)  
+                frontier.append(neighbor)
+                
+                current_memory = len(frontier) + len(explored)
+                max_memory_usage = max(max_memory_usage, current_memory)
 
-    return None, None, nodes_expanded
+    return None, None, nodes_expanded, max_memory_usage
 
-def dfs_search(maze: Maze) -> Tuple[Optional[List[Pos]], Optional[float], int]:
+def dfs_search(maze: Maze) -> Tuple[Optional[List[Pos]], Optional[float], int, int]:
     """
     Realiza uma Busca em Profundidade (DFS).
-    Retorna: (caminho, custo, nós_expandidos)
+    Retorna: (caminho, custo, nós_expandidos, pico_memoria)
     """
     start_node = maze.start
     nodes_expanded = 0
     
-    frontier = [start_node]     
+    frontier = [start_node]
     
     came_from: Dict[Pos, Pos] = {start_node: None}
     
     explored = {start_node}
 
+    max_memory_usage = len(frontier) + len(explored)
+
     while frontier:
-        current_node = frontier.pop()  
+        current_node = frontier.pop()
         nodes_expanded += 1
 
         if maze.goal_test(current_node):
@@ -161,16 +174,19 @@ def dfs_search(maze: Maze) -> Tuple[Optional[List[Pos]], Optional[float], int]:
                 temp = came_from[temp]
             path.reverse()
             cost = len(path) - 1
-            return path, float(cost), nodes_expanded
+            return path, float(cost), nodes_expanded, max_memory_usage
 
         for action in maze.actions(current_node):
             neighbor = maze.result(current_node, action)
             if neighbor not in explored:
                 explored.add(neighbor)
                 came_from[neighbor] = current_node
-                frontier.append(neighbor)   
+                frontier.append(neighbor)
+                
+                current_memory = len(frontier) + len(explored)
+                max_memory_usage = max(max_memory_usage, current_memory)
 
-    return None, None, nodes_expanded
+    return None, None, nodes_expanded, max_memory_usage
 
 if __name__ == '__main__':
     try:    
@@ -190,14 +206,12 @@ if __name__ == '__main__':
 
         for name, func in algorithms.items():
             print(f"Executando {name}...")
-            tracemalloc.start()
+            
             start_time = time.perf_counter()
             
-            path, cost, expanded_nodes = func(maze_instance)
+            path, cost, expanded_nodes, memory_usage = func(maze_instance)
             
-            end_time = time.perf_counter()
-            _, peak_mem = tracemalloc.get_traced_memory()
-            tracemalloc.stop()
+            end_time = time.perf_counter()  
             
             elapsed_time = end_time - start_time
             
@@ -206,14 +220,13 @@ if __name__ == '__main__':
                 "cost": cost,
                 "expanded_nodes": expanded_nodes,
                 "time": elapsed_time,
-                "memory": peak_mem
+                "memory": memory_usage 
             }
 
-            print(f"{name} concluído em {elapsed_time:.6f} segundos.")
-            print(f"Pico de memória ({name}): {peak_mem / 1024:.2f} KB")
+            print(f"{name} concluído em {elapsed_time:.6f} segundos.")   
+            print(f"Pico de memória ({name}): {memory_usage} elementos")
             print(f"Nós expandidos ({name}): {expanded_nodes}\n")
-
-        # --- Salvando todos os resultados ---
+ 
         output_filepath = '../data/results.txt'
         print(f"Salvando todos os resultados em {output_filepath}...")
         
@@ -221,8 +234,8 @@ if __name__ == '__main__':
             for name, data in results.items():
                 f.write(f"Algoritmo: {name}\n")
                 if data["path"]:
-                    f.write(f"Tempo de execução: {data['time']:.6f} segundos\n")
-                    f.write(f"Pico de memória: {data['memory'] / 1024:.2f} KB\n")
+                    f.write(f"Tempo de execução: {data['time']:.6f} segundos\n")   
+                    f.write(f"Pico de memória: {data['memory']} elementos\n")
                     f.write(f"Nós expandidos: {data['expanded_nodes']}\n")
                     f.write(f"Custo do caminho: {data['cost']}\n")
                     f.write(f"Nós no caminho: {len(data['path'])}\n")
