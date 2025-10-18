@@ -1,6 +1,6 @@
-Algoritmo: BFS
-Tempo de execução: 0.000294 segundos
-Pico de memória: 2.37 KB
+    Algoritmo: BFS
+Tempo de execução: 0.000078 segundos
+Pico de memória: 21 elementos
 Nós expandidos: 18
 Custo do caminho: 8.0
 Nós no caminho: 9
@@ -9,8 +9,8 @@ Caminho: [(0, 0), (1, 0), (2, 0), (3, 0), (4, 0), (4, 1), (4, 2), (4, 3), (4, 4)
 --------------------------------------------------
 
 Algoritmo: DFS
-Tempo de execução: 0.000051 segundos
-Pico de memória: 1.66 KB
+Tempo de execução: 0.000028 segundos
+Pico de memória: 13 elementos
 Nós expandidos: 10
 Custo do caminho: 8.0
 Nós no caminho: 9
@@ -19,8 +19,8 @@ Caminho: [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (1, 4), (2, 4), (3, 4), (4, 4)
 --------------------------------------------------
 
 Algoritmo: A*
-Tempo de execução: 0.000151 segundos
-Pico de memória: 1.85 KB
+Tempo de execução: 0.000064 segundos
+Pico de memória: 21 elementos
 Nós expandidos: 17
 Custo do caminho: 8.0
 Nós no caminho: 9
@@ -29,8 +29,8 @@ Caminho: [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (1, 4), (2, 4), (3, 4), (4, 4)
 --------------------------------------------------
 
 Algoritmo: Greedy Best-First Search
-Tempo de execução: 0.000058 segundos
-Pico de memória: 2.21 KB
+Tempo de execução: 0.000031 segundos
+Pico de memória: 14 elementos
 Nós expandidos: 9
 Custo do caminho: 8.0
 Nós no caminho: 9
