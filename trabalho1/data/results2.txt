@@ -1,5 +1,25 @@
+Algoritmo: A* (Euclidean)
+Tempo de execução: 0.000281 segundos
+Pico de memória: 102 elementos
+Nós expandidos: 75
+Custo do caminho: 27.0
+Nós no caminho: 28
+Caminho: [(4, 8), (3, 8), (2, 8), (1, 8), (0, 8), (0, 9), (0, 10), (0, 11), (1, 11), (2, 11), (3, 11), (4, 11), (4, 12), (5, 12), (6, 12), (6, 11), (6, 10), (6, 9), (6, 8), (6, 7), (6, 6), (6, 5), (6, 4), (6, 3), (6, 2), (6, 1), (6, 0), (5, 0)]
+
+--------------------------------------------------
+
+Algoritmo: A* (Manhattan)
+Tempo de execução: 0.000296 segundos
+Pico de memória: 102 elementos
+Nós expandidos: 75
+Custo do caminho: 27.0
+Nós no caminho: 28
+Caminho: [(4, 8), (3, 8), (2, 8), (1, 8), (0, 8), (0, 9), (0, 10), (0, 11), (1, 11), (2, 11), (3, 11), (4, 11), (4, 12), (5, 12), (6, 12), (6, 11), (6, 10), (6, 9), (6, 8), (6, 7), (6, 6), (6, 5), (6, 4), (6, 3), (6, 2), (6, 1), (6, 0), (5, 0)]
+
+--------------------------------------------------
+
 Algoritmo: BFS
-Tempo de execução: 0.000436 segundos
+Tempo de execução: 0.000484 segundos
 Pico de memória: 167 elementos
 Nós expandidos: 151
 Custo do caminho: 27.0
@@ -9,7 +29,7 @@ Caminho: [(4, 8), (3, 8), (2, 8), (1, 8), (0, 8), (0, 9), (0, 10), (0, 11), (1, 
 --------------------------------------------------
 
 Algoritmo: DFS
-Tempo de execução: 0.000710 segundos
+Tempo de execução: 0.000488 segundos
 Pico de memória: 243 elementos
 Nós expandidos: 141
 Custo do caminho: 47.0
@@ -18,18 +38,18 @@ Caminho: [(4, 8), (4, 9), (3, 9), (2, 9), (2, 8), (2, 7), (2, 6), (2, 5), (2, 4)
 
 --------------------------------------------------
 
-Algoritmo: A*
-Tempo de execução: 0.000507 segundos
-Pico de memória: 102 elementos
-Nós expandidos: 75
-Custo do caminho: 27.0
-Nós no caminho: 28
-Caminho: [(4, 8), (3, 8), (2, 8), (1, 8), (0, 8), (0, 9), (0, 10), (0, 11), (1, 11), (2, 11), (3, 11), (4, 11), (4, 12), (5, 12), (6, 12), (6, 11), (6, 10), (6, 9), (6, 8), (6, 7), (6, 6), (6, 5), (6, 4), (6, 3), (6, 2), (6, 1), (6, 0), (5, 0)]
+Algoritmo: Greedy Best-First Search (Euclidean)
+Tempo de execução: 0.000249 segundos
+Pico de memória: 106 elementos
+Nós expandidos: 71
+Custo do caminho: 39.0
+Nós no caminho: 40
+Caminho: [(4, 8), (4, 7), (4, 6), (4, 5), (4, 4), (4, 3), (4, 2), (3, 2), (2, 2), (2, 3), (1, 3), (1, 4), (0, 4), (0, 5), (0, 6), (0, 7), (0, 8), (0, 9), (0, 10), (0, 11), (1, 11), (2, 11), (3, 11), (4, 11), (4, 12), (5, 12), (6, 12), (6, 11), (6, 10), (6, 9), (6, 8), (6, 7), (6, 6), (6, 5), (6, 4), (6, 3), (6, 2), (6, 1), (6, 0), (5, 0)]
 
 --------------------------------------------------
 
-Algoritmo: Greedy Best-First Search
-Tempo de execução: 0.000420 segundos
+Algoritmo: Greedy Best-First Search (Manhattan)
+Tempo de execução: 0.000254 segundos
 Pico de memória: 106 elementos
 Nós expandidos: 71
 Custo do caminho: 43.0

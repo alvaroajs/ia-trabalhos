@@ -1,24 +1,14 @@
-    Algoritmo: BFS
-Tempo de execução: 0.000078 segundos
+Algoritmo: A* (Euclidean)
+Tempo de execução: 0.000068 segundos
 Pico de memória: 21 elementos
-Nós expandidos: 18
-Custo do caminho: 8.0
-Nós no caminho: 9
-Caminho: [(0, 0), (1, 0), (2, 0), (3, 0), (4, 0), (4, 1), (4, 2), (4, 3), (4, 4)]
-
---------------------------------------------------
-
-Algoritmo: DFS
-Tempo de execução: 0.000028 segundos
-Pico de memória: 13 elementos
-Nós expandidos: 10
+Nós expandidos: 17
 Custo do caminho: 8.0
 Nós no caminho: 9
 Caminho: [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (1, 4), (2, 4), (3, 4), (4, 4)]
 
---------------------------------------------------
+    --------------------------------------------------
 
-Algoritmo: A*
+Algoritmo: A* (Manhattan)
 Tempo de execução: 0.000064 segundos
 Pico de memória: 21 elementos
 Nós expandidos: 17
@@ -28,8 +18,38 @@ Caminho: [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (1, 4), (2, 4), (3, 4), (4, 4)
 
 --------------------------------------------------
 
-Algoritmo: Greedy Best-First Search
-Tempo de execução: 0.000031 segundos
+Algoritmo: BFS
+Tempo de execução: 0.000076 segundos
+Pico de memória: 21 elementos
+Nós expandidos: 18
+Custo do caminho: 8.0
+Nós no caminho: 9
+Caminho: [(0, 0), (1, 0), (2, 0), (3, 0), (4, 0), (4, 1), (4, 2), (4, 3), (4, 4)]
+
+--------------------------------------------------
+
+Algoritmo: DFS
+Tempo de execução: 0.000029 segundos
+Pico de memória: 13 elementos
+Nós expandidos: 10
+Custo do caminho: 8.0
+Nós no caminho: 9
+Caminho: [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (1, 4), (2, 4), (3, 4), (4, 4)]
+
+--------------------------------------------------
+
+Algoritmo: Greedy Best-First Search (Euclidean)
+Tempo de execução: 0.000026 segundos
+Pico de memória: 14 elementos
+Nós expandidos: 9
+Custo do caminho: 8.0
+Nós no caminho: 9
+Caminho: [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (1, 4), (2, 4), (3, 4), (4, 4)]
+
+--------------------------------------------------
+
+Algoritmo: Greedy Best-First Search (Manhattan)
+Tempo de execução: 0.000032 segundos
 Pico de memória: 14 elementos
 Nós expandidos: 9
 Custo do caminho: 8.0
