@@ -4,6 +4,8 @@ Este projeto implementa e compara quatro algoritmos de busca em espaço de estad
 
 Este código é o artefato de software para o primeiro trabalho prático da disciplina de Inteligência Artificial.
 
+Para mais informações o arquivo `RelatórioTrabalho1_IA.pdf` contém todos os dados técnicos a respeito do projeto.
+
 ## Algoritmos Implementados
 
 O projeto inclui a implementação dos seguintes algoritmos:
@@ -45,3 +47,4 @@ Para executar os algoritmos de busca, utilize o script principal a partir da lin
 python3 ia-trabalhos/trabalho1/src/*.py
 ```
 - Com o *.py todos os arquivos .py serão executados de modo a gerar as tabelas para cada algoritimo
+
