@@ -9,22 +9,12 @@ N = 8
 
 
 def initial_board() -> Board:
-    """
-    Gera um tabuleiro inicial.
-    Esta implementação gera um tabuleiro aleatório, 
-    colocando uma rainha em uma linha aleatória para cada coluna.
-    """
+    
     return [random.randint(0, N - 1) for _ in range(N)]
 
 
 def conflicts(board: Board) -> int:
-    """
-    Função de avaliação: calcula o número de pares de rainhas em conflito.
-    O objetivo é minimizar esta função (chegar a 0).
     
-    Como a representação garante uma rainha por coluna, não precisamos
-    verificar conflitos verticais.
-    """
     count = 0
     for c1 in range(N):
         for c2 in range(c1 + 1, N):
@@ -41,13 +31,7 @@ def conflicts(board: Board) -> int:
 
 
 def neighbors(board: Board) -> Iterable[Move]:
-    """
-    Gera movimentos de vizinhança: mover uma rainha de uma coluna para outra linha.
-    Retorna pares (coluna, nova_linha) válidos.
     
-    Um "vizinho" é um estado do tabuleiro alcançável movendo
-    uma única rainha para uma linha diferente em sua coluna.
-    """
     for c in range(N):
         current_r = board[c]
         for new_r in range(N):
@@ -56,10 +40,7 @@ def neighbors(board: Board) -> Iterable[Move]:
 
 
 def apply(board: Board, mv: Move) -> Board:
-    """
-    Retorna um novo tabuleiro após aplicar um movimento (mv).
-    Importante: Retorna uma *cópia* do tabuleiro, não modifica o original.
-    """
+    
     c, r = mv
     newb = board.copy()
     newb[c] = r
